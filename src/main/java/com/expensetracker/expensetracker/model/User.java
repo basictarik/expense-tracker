@@ -1,13 +1,13 @@
 package com.expensetracker.expensetracker.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.*;
 import java.util.Collection;
-
-@Entity
+//TODO: bla
 @Data
+@Entity
 @Table(name = "users")
 public class User {
     @Id

@@ -2,6 +2,7 @@ package com.expensetracker.expensetracker.model;
 
 import lombok.Data;
 
+
 import javax.persistence.*;
 import java.util.Collection;
 
