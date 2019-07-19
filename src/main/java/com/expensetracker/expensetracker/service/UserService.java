@@ -21,4 +21,10 @@ public class UserService {
 
         return users;
     }
+
+    public void createUser(User user) {
+        user.setEnabled(true);
+        user.setTokenExpired(true);
+        User savedUser = userRepository.save(user);
+    }
 }
