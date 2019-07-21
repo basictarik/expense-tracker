@@ -15,8 +15,8 @@ public class UserController {
 
     public List<User> users;
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST, headers = "content-type=application/x-www-form-urlencoded")
-    public void signup(@RequestBody User user) {
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public void signup(@ModelAttribute("user") User user) {
         userService.createUser(user);
     }
 }
