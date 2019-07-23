@@ -10,18 +10,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
 @Entity
-@Table(name = "expenses")
-public class Expense {
-
+@Data
+@Table(name = "notes")
+public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Enumerated(EnumType.STRING)
+    @NaturalId
+    @Column(length = 60)
+    private NotificationType notificationType;
+
+    @Column(nullable = false)
+    private String notificationText;
+
+    @Column(name = "reminder_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime reminderDate;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "expense_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private User user;
+    private Expense expense;
 }
