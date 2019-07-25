@@ -19,6 +19,9 @@ public class NoteDTO {
     @NotBlank
     private NotificationType notificationType;
 
+    @NotBlank
+    private String category;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
     private LocalDateTime reminderDate;
 }
