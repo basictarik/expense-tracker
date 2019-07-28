@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -45,5 +44,27 @@ public class ExpenseService {
         expenseRepository.save(expense);
 
         return expense;
+    }
+
+    public void deleteExpense(Long Id) {
+        expenseRepository.deleteById(Id);
+        log.info("Expense with id " + Id + " has been deleted");
+    }
+
+    public Expense updateExpense(Expense expense, Long userId, Long expenseId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new NotFoundException("User with Id: " + userId + " does not exist"));
+
+        Expense updatedExpense = expenseRepository.findById(expenseId).orElseThrow(() ->
+                new NotFoundException("Expense with Id " + expenseId + " not found"));
+
+        updatedExpense.setAmount(expense.getAmount());
+        updatedExpense.setCategory(expense.getCategory());
+        updatedExpense.setDescription(expense.getDescription());
+        expenseRepository.save(updatedExpense);
+
+        log.info("Expense for user with Id: " + userId + " has been updated");
+
+        return updatedExpense;
     }
 }

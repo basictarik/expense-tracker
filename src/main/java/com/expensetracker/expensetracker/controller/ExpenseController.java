@@ -1,11 +1,9 @@
 package com.expensetracker.expensetracker.controller;
 
-import com.expensetracker.expensetracker.exception.NotFoundException;
 import com.expensetracker.expensetracker.model.Expense;
-import com.expensetracker.expensetracker.model.User;
-import com.expensetracker.expensetracker.repo.UserRepository;
 import com.expensetracker.expensetracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +29,18 @@ public class ExpenseController {
     @GetMapping(value = "{userId}/expenses/{expenseId}")
     public Expense getExpense(@PathVariable Long expenseId) {
         return expenseService.getExpense(expenseId);
+    }
+
+    @DeleteMapping(value = "{userId}/expenses/{expenseId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteExpense(@PathVariable Long expenseId) {
+        expenseService.deleteExpense(expenseId);
+    }
+
+    @PutMapping(value = "{userId}/expenses/{expenseId}")
+    public Expense updateExpense(@RequestBody Expense expense, @PathVariable long userId, @PathVariable long expenseId) {
+        Expense updatedExpense = expenseService.updateExpense(expense, userId, expenseId);
+        return updatedExpense;
     }
 
 
