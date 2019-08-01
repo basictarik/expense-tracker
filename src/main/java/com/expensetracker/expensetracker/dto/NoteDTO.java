@@ -1,6 +1,6 @@
 package com.expensetracker.expensetracker.dto;
 
-import com.expensetracker.expensetracker.model.NotificationType;
+import com.expensetracker.expensetracker.model.NotificationTypeName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class NoteDTO {
     private String notificationText;
 
     @NotBlank
-    private NotificationType notificationType;
+    private NotificationTypeName notificationType;
 
     @NotBlank
     private String category;

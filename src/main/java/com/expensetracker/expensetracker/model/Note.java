@@ -2,13 +2,14 @@ package com.expensetracker.expensetracker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,10 +19,11 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    @NaturalId
-    @Column(length = 60)
-    private NotificationType notificationType;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "note_notetype",
+            joinColumns = @JoinColumn(name = "note_id"),
+            inverseJoinColumns = @JoinColumn(name = "notetype_id"))
+    private Set<NotificationType> notificationTypes = new HashSet<>();
 
     @Column(nullable = false)
     private String notificationText;

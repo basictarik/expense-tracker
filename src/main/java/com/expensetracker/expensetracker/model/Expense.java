@@ -1,16 +1,16 @@
 package com.expensetracker.expensetracker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import org.hibernate.annotations.NaturalId;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "expenses")
 public class Expense {
@@ -33,4 +33,7 @@ public class Expense {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "expense")
+    private List<Note> notes;
 }
