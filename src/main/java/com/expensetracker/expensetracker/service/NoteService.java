@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -27,6 +28,17 @@ public class NoteService {
 
     @Autowired
     private NotificationTypeRepository notificationTypeRepository;
+
+    public List<Note> getAllNotes(Long expenseId) {
+        List<Note> allNotes = noteRepository.findAll();
+        return allNotes;
+    }
+
+    public Note getOneNote(Long noteId) {
+        Note note = noteRepository.findById(noteId).orElseThrow(() ->
+                new NotFoundException("Note with Id: " + noteId + " not found"));
+        return note;
+    }
 
     public Note addNote(Note note, Long expenseId) {
         Expense expense = expenseRepository.findById(expenseId).orElseThrow(() ->
